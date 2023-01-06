@@ -1,0 +1,11 @@
+Di bagian kode di atas, terdapat penggunaan createContext dan useReducer dari React.
+
+createContext adalah sebuah function yang digunakan untuk membuat sebuah context di React.
+
+useReducer adalah sebuah hook yang digunakan untuk mengelola state yang lebih kompleks dan melakukan dispatch pada suatu action.
+
+Kode di atas membuat sebuah UserContext yang berisi initial state yang terdiri dari isLogin dan user. Kemudian, dibuat juga sebuah reducer yang digunakan untuk mengelola state dan melakukan dispatch pada suatu action.
+
+Setelah itu, dibuat juga sebuah component UserContextProvider yang mengelola state dan dispatch dari UserContext dengan menggunakan useReducer dan menampilkannya ke dalam context provider.
+
+Sebagai contoh, kita dapat menggunakan context ini sebagai berikut:
