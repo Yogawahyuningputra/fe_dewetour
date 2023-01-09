@@ -9,6 +9,7 @@ import { UserContext } from '../context/userContext'
 import QRCode from 'qrcode.react';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import moment from 'moment'
 const Swal2 = withReactContent(Swal)
 
 function Payment() {
@@ -142,7 +143,7 @@ function Payment() {
                             </Col>
                             <Col sm={3} className="fw-bold">
                                 <Card.Text className="fw-bold">BOOKING</Card.Text>
-                                <Card.Text className="text-secondary">{getById[index].trip?.date_trip}</Card.Text>
+                                <Card.Text className="text-secondary">{moment(getById[index].trip?.date_trip).format("DD MMMM YYYY")}</Card.Text>
                             </Col>
                         </Stack>
 
@@ -165,7 +166,7 @@ function Payment() {
                             <Col sm={2}>
                                 <Col className="text-start">
                                     <Card.Text className="fw-bold mb-1">Date Trip</Card.Text>
-                                    <Card.Text className="text-secondary">{getById[index].trip?.date_trip}</Card.Text>
+                                    <Card.Text className="text-secondary">{moment(getById[index].trip?.date_trip).format("DD MMMM YYYY")}</Card.Text>
                                 </Col>
                                 <Col className="text-start">
                                     <Card.Text className="fw-bold mb-1">Acomodations</Card.Text>

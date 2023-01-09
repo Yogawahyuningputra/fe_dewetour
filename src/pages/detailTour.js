@@ -14,7 +14,7 @@ import { useQuery } from 'react-query'
 import { API } from '../config/api'
 import Login from '../component/login'
 import Register from '../component/register'
-
+import moment from "moment"
 
 function DetailTours() {
     const [login, setLogin] = useState(false)
@@ -75,7 +75,7 @@ function DetailTours() {
                 qty: qtyfix,
                 total: totalPay
             }
-            const response = await API.post("/transaction", formData, config)
+            await API.post("/transaction", formData, config)
 
             navigate("/payment")
 
@@ -149,7 +149,7 @@ function DetailTours() {
                         <Card.Text className='text-secondary fw-bold text-start mx-2 mb-0'>Date Trip</Card.Text>
                         <Stack direction="horizontal">
                             <Card.Img variant="top" src={calender} alt="images" className="p-2" style={{ width: "8vh" }} />
-                            <Card.Text className="fw-bold fs-5">{detailTour?.date_trip}</Card.Text>
+                            <Card.Text className="fw-bold fs-5">{moment(detailTour?.date_trip).format("DD MMMM YYYY")}</Card.Text>
                         </Stack>
                     </Col>
                 </Stack>

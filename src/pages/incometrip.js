@@ -4,9 +4,7 @@ import { Card, Col, Row, Container, Stack, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { API } from '../config/api';
-import NotFound from '../component/notfound';
 import AddCountry from './addCountry'
-
 
 function Income() {
     const navigate = useNavigate()
@@ -15,11 +13,11 @@ function Income() {
         return response.data.data
     })
     console.log("income", IncomeTrip)
-    const formatIDR = new Intl.NumberFormat(undefined, {
-        style: "currency",
-        currency: "IDR",
-        maximumFractionDigits: 0,
-    })
+    // const formatIDR = new Intl.NumberFormat(undefined, {
+    //     style: "currency",
+    //     currency: "IDR",
+    //     maximumFractionDigits: 0,
+    // })
 
     let totalIncomeByCountry = {};
 

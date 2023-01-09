@@ -3,9 +3,9 @@ import { Container, Stack, Col, Card, Table, Button, Badge, Modal } from 'react-
 import logo from '../assest/images/logo2.png'
 import invoice from '../assest/images/invoice.png'
 import { API } from '../config/api';
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-const Swal2 = withReactContent(Swal)
+import moment from "moment"
+
+
 
 function ModalApprove(props) {
     const { show, onHide, selectedData, onApprove, onCancel } = props;
@@ -59,7 +59,7 @@ function ModalApprove(props) {
                         </Col>
                         <Col sm={3} className="fw-bold">
                             <Card.Text className="fw-bold mt-0">BOOKING</Card.Text>
-                            <Card.Text className="text-secondary">{selectedData?.trip?.date_trip}</Card.Text>
+                            <Card.Text className="text-secondary">{moment(selectedData?.trip?.date_trip).format("DD MMMM YYYY")}</Card.Text>
                         </Col>
                     </Stack>
                     <Stack direction="horizontal" gap={3} className="mt-0">
@@ -72,7 +72,7 @@ function ModalApprove(props) {
                         <Col sm={2}>
                             <Col className="text-start">
                                 <Card.Text className="fw-bold mb-1">Date Trip</Card.Text>
-                                <Card.Text className="text-secondary">{selectedData?.trip?.date_trip}</Card.Text>
+                                <Card.Text className="text-secondary">{moment(selectedData?.trip?.date_trip).format("DD MMMM YYYY")}</Card.Text>
                             </Col>
                             <Col className="text-start">
                                 <Card.Text className="fw-bold mb-1">Acomodations</Card.Text>
