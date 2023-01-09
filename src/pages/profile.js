@@ -12,7 +12,7 @@ import logo from '../assest/images/logo2.png'
 import { useQuery } from 'react-query'
 import { API } from '../config/api'
 import QRCode from 'qrcode.react';
-
+import moment from "moment"
 
 function Profile() {
     const [state, dispatch] = useContext(UserContext)
@@ -118,7 +118,7 @@ function Profile() {
                             </Col>
                             <Col sm={3} className="fw-bold me-3">
                                 <Card.Text className="fw-bold">BOOKING</Card.Text>
-                                <Card.Text className="text-secondary">{item?.trip?.date_trip}</Card.Text>
+                                <Card.Text className="text-secondary">{moment(item?.trip?.date_trip).format("DD MMMM YYYY")}</Card.Text>
                             </Col>
                         </Stack>
                         <Stack direction="horizontal" gap={3} className="mt-0">
@@ -140,7 +140,7 @@ function Profile() {
                             <Col sm={2}>
                                 <Col className="text-start">
                                     <Card.Text className="fw-bold mb-1">Date Trip</Card.Text>
-                                    <Card.Text className="text-secondary">{item?.trip?.date_trip}</Card.Text>
+                                    <Card.Text className="text-secondary">{moment(item?.trip?.date_trip).format("DD MMMM YYYY")}</Card.Text>
 
                                 </Col>
                                 <Col className="text-start">
