@@ -4,6 +4,8 @@ import logo from '../assest/images/logo2.png'
 import invoice from '../assest/images/invoice.png'
 import { API } from '../config/api';
 import moment from "moment"
+import QRCode from 'qrcode.react';
+
 
 
 
@@ -90,8 +92,8 @@ function ModalApprove(props) {
                             </Col>
                         </Col>
                         <Stack direction="vertical" className=" ms-auto mt-3">
-                            <img src={invoice} alt="images" style={{ width: "140px", marginLeft: "15px" }}></img>
-                            <Card.Text className="text-secondary">upload payment proof</Card.Text>
+                            <QRCode value={selectedData?.trip?.status} />
+
                         </Stack>
 
                     </Stack>
