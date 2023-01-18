@@ -15,7 +15,7 @@ function Income() {
     const [update, setUpdate] = useState(false)
     const [selectData, setSelectedData] = useState(null)
 
-    const { data: IncomeTrip, refetch: refetchUpdate, isFetching } = useQuery('incomeCache', async () => {
+    const { data: IncomeTrip, refetch: refetchUpdate, isLoading } = useQuery('incomeCache', async () => {
         const response = await API.get('/trips')
         return response.data.data
     })
@@ -80,7 +80,7 @@ function Income() {
         maximumFractionDigits: 0,
     })
 
-    if (isFetching) {
+    if (isLoading) {
         return (
 
             <div className='d-flex justify-content-center' style={{ marginTop: "13rem" }}>
