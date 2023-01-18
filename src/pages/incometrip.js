@@ -7,7 +7,6 @@ import { API } from '../config/api';
 import AddCountry from './addCountry'
 import UpdateTrip from '../component/updateTrip';
 import { RotatingLines } from 'react-loader-spinner'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 
 function Income() {
@@ -128,7 +127,7 @@ function Income() {
                                         {formatIDR.format(items?.price)}
                                     </Col>
                                     <Col className="text-end text-secondary fw-bold">
-                                        {items.country.name}
+                                        {items?.country?.name}
                                     </Col>
                                 </Stack>
                                 <Stack direction="horizontal">
@@ -140,7 +139,6 @@ function Income() {
                                     </Col>
                                 </Stack>
                             </Card.Body>
-
                         </Card>
                     </Col>
                 ))}

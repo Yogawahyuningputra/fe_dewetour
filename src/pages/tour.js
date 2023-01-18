@@ -40,8 +40,6 @@ function Tour({ search }) {
                         return value
                     } else if (value.title.toLowerCase().includes(search.toLocaleLowerCase())) {
                         return value
-                    } else if (value.country.toLowerCase().includes(search.toLocaleLowerCase())) {
-                        return value
                     }
 
 

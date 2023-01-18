@@ -106,11 +106,11 @@ export default function Updatetrip(props) {
         }
     })
 
-    const { data: Country } = useQuery("countryCache", async () => {
+    const { data: updateCountry } = useQuery("countryCaches", async () => {
         const response = await API.get("/countries")
         return response.data.data
     })
-
+    console.log(updateCountry)
     return (
         <>
             <Modal show={show} onHide={onHide}>
@@ -133,10 +133,10 @@ export default function Updatetrip(props) {
                         </Form.Group>
                         <Stack direction="vertical" className="mb-3">
                             <Form.Label className="">Country</Form.Label>
-                            <Form.Select size="md" type="number" name='country_id' style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange}>
-                                {Country?.map((data) => (
+                            <Form.Select size="md" type="number" value={trip?.country_id} name='country_id' style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange}>
+                                {updateCountry?.map((data, i) => (
 
-                                    <option value={data.id}>{data.name}</option>
+                                    <option key={i} value={data?.id}>{data?.name}</option>
 
                                 ))}
 
