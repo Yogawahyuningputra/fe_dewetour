@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Col, Row, Container, Stack, Button } from 'react-bootstrap';
 // import beach from '../assest/images/beach.png'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { API } from '../config/api';
 import AddCountry from './addCountry'
+import UpdateTrip from '../component/updateTrip';
+import { RotatingLines } from 'react-loader-spinner'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
 
 function Income() {
     const navigate = useNavigate()
-    const { data: IncomeTrip } = useQuery('incomeCache', async () => {
+    const [update, setUpdate] = useState(false)
+    const [selectData, setSelectedData] = useState(null)
+
+    const { data: IncomeTrip, refetch: refetchUpdate } = useQuery('incomeCache', async () => {
         const response = await API.get('/trips')
         return response.data.data
     })
-    console.log("income", IncomeTrip)
+    // console.log("income", IncomeTrip)
     // const formatIDR = new Intl.NumberFormat(undefined, {
     //     style: "currency",
     //     currency: "IDR",
@@ -30,6 +37,54 @@ function Income() {
         });
     }
 
+    const handleUpdate = (items) => {
+        setUpdate(true)
+        setSelectedData(items)
+    }
+
+    // let ID = 0
+    // if (IncomeTrip?.length !== 0) {
+    //     IncomeTrip?.map((element) => (
+    //         ID = element.id
+
+    //     ))
+
+    // }
+    // console.log(ID)
+    // const handleDelete = async () => {
+    //     try {
+    //         Swal.fire({
+    //             title: 'Are you sure?',
+    //             text: "You won't be able to revert this!",
+    //             icon: 'warning',
+    //             showCancelButton: true,
+    //             confirmButtonColor: '#3085d6',
+    //             cancelButtonColor: '#d33',
+    //             confirmButtonText: 'Yes, delete it!'
+    //         })
+    //             .then(async (result) => {
+
+    //                 if (result.isConfirmed) {
+    //                     await API.delete(`/trip/` + ID);
+
+    //                     Swal.fire(
+    //                         'Deleted!',
+    //                         'Your file has been deleted.',
+    //                         'success'
+    //                     )
+    //                 }
+    //             })
+
+    //         refetchUpdate();
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+    const formatIDR = new Intl.NumberFormat(undefined, {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0,
+    })
     return (
         <Container style={{ marginTop: "10vh" }}>
             <Stack direction='horizontal' style={{ marginRight: "38vh" }}>
@@ -64,10 +119,18 @@ function Income() {
                                                     <div>Total income for {country}: {formatIDR.format(totalIncomeByCountry[country])}</div>
                                                 ))
                                             } */}
-                                        {items?.price}
+                                        {formatIDR.format(items?.price)}
                                     </Col>
                                     <Col className="text-end text-secondary fw-bold">
                                         {items.country.name}
+                                    </Col>
+                                </Stack>
+                                <Stack direction="horizontal">
+                                    {/* <Col className="text-secondary mb-2 d-flex justify-content-center">
+                                        <Button variant="warning" className="text-light fw-bold w-75" onClick={handleDelete} >DELETE</Button>
+                                    </Col> */}
+                                    <Col className="text-secondary mb-2 d-flex justify-content-center">
+                                        <Button variant="warning" size="sm" className="text-light fw-bold w-100 mt-2" onClick={() => handleUpdate(items)}>UPDATE</Button>
                                     </Col>
                                 </Stack>
                             </Card.Body>
@@ -77,6 +140,17 @@ function Income() {
                 ))}
 
             </Row>
+            <UpdateTrip
+                show={update}
+                onHide={setUpdate}
+                selectData={selectData}
+                onSaves={() => {
+                    setUpdate(false)
+                    refetchUpdate()
+                }}
+
+
+            />
         </Container >
 
     );

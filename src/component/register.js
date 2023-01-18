@@ -5,6 +5,7 @@ import hibiscus from '../assest/images/hibiscus.png'
 import { useMutation } from 'react-query'
 import { API } from '../config/api'
 import '../App.css';
+import Swal from 'sweetalert2'
 
 function Register({ show, onHide, tologin }) {
 
@@ -19,7 +20,6 @@ function Register({ show, onHide, tologin }) {
         gender: '',
         address: '',
         role: 'user',
-        // image: '',
 
     })
     const handleOnChange = (e) => {
@@ -47,11 +47,17 @@ function Register({ show, onHide, tologin }) {
             formData.set("phone", user.phone)
             formData.set("address", user.address)
             formData.set("role", user.role)
-            // formData.set("image", user.image[0])
 
             const response = await API.post('/register', formData, user, config)
             console.log(response)
             if (response.data.code === 200) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Register has been saved',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
                 const alert = (
                     <Alert variant="success" className='py-1'>Success</Alert>
                 )

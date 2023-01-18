@@ -15,21 +15,21 @@ const MenuAdmin = ({ logout }) => {
 
 
     return (
-        <OverlayTrigger trigger="click" placement="bottom" className="mt-1 py-1" overlay={
+        <OverlayTrigger delay={{ show: 250, hide: 2500 }} placement="bottom" className="mt-1 py-1" overlay={
 
-            <Popover id="popover-basic" style={{ width: "auto", height: "auto", fontWeight: "bold" }}>
+            <Popover id="popover-basic" style={{ width: "auto", height: "auto", fontWeight: "bold", cursor: 'pointer' }}>
 
 
                 <Popover.Body className="mt-1 mb-1 py-1" onClick={() => navigate("/admin/incometrip")}>
-                    <img src={Trip} alt="" style={{ width: "30px", height: "30px", marginRight: "30px" }} />Trip
+                    <img src={Trip} alt="" style={{ width: "30px", height: "30px", marginRight: "30px", cursor: 'pointer' }} />Trip
                 </Popover.Body>
                 <hr className="mt-1 mb-1 py-1" />
                 <Popover.Body className="mt-1 mb-1 py-1" onClick={logout}>
-                    <img src={Logout} alt="" style={{ width: "30px", height: "30px", marginRight: "30px" }} />Logout
+                    <img src={Logout} alt="" style={{ width: "30px", height: "30px", marginRight: "30px", cursor: 'pointer' }} />Logout
                 </Popover.Body>
             </Popover>
         }>
-            <img src={Profile} alt="prifile" style={{ width: "50px", height: "50px" }} />
+            <img src={Profile} alt="prifile" style={{ width: "50px", height: "50px", cursor: 'pointer' }} />
         </OverlayTrigger>
 
     );

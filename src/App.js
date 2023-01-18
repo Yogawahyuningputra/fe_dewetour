@@ -105,7 +105,6 @@ function App() {
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/detailTour/:id" element={<Detailtour />} />
             <Route exact path="*" element={<Notfound />} />
-
           </Route >
 
         </Routes>

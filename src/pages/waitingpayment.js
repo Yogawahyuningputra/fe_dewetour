@@ -9,8 +9,8 @@ import QRCode from 'qrcode.react';
 
 
 function WaitingPayment() {
-    const [state, dispatch] = useContext(UserContext)
-    const { data: Payment, refetch } = useQuery('waitingCache', async () => {
+    const [state,] = useContext(UserContext)
+    const { data: Payment } = useQuery('waitingCache', async () => {
         const response = await API.get("/transactions")
         return response.data.data
 

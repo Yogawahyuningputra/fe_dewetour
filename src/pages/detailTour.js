@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Card, Container, Button, Col, Stack } from 'react-bootstrap'
 import beach from '../assest/images/beach.png'
 import calender from '../assest/images/calender.png'
@@ -15,8 +15,10 @@ import { API } from '../config/api'
 import Login from '../component/login'
 import Register from '../component/register'
 import moment from "moment"
+import { UserContext } from '../context/userContext'
 
 function DetailTours() {
+    const [state] = useContext(UserContext)
     const [login, setLogin] = useState(false)
     const [register, setRegister] = useState(false)
 
@@ -37,14 +39,15 @@ function DetailTours() {
     const [person, setPerson] = useState(1)
 
     function AddPerson() {
-        setPerson((prev) => prev + 1)
+        setPerson(person + 1)
         if (person === detailTour?.quota) {
             setPerson(detailTour?.quota)
         }
-    } console.log("isi qty", detailTour?.quota)
+    }
+    // console.log("isi qty", detailTour?.quota)
     function LessPerson() {
         if (person !== 1) {
-            setPerson((prev) => prev - 1)
+            setPerson(person - 1)
         }
     }
 
@@ -96,7 +99,7 @@ function DetailTours() {
 
                 <Stack direction='vertical'>
                     <Col>
-                        <Card.Img variant="top" src={detailTour?.image} alt="images" className="p-2" style={{ height: "65vh", borderRadius: "15px" }} />
+                        <Card.Img variant="top" src={detailTour?.image} alt="images" className="p-2" style={{ height: "80vh", borderRadius: "15px" }} />
                     </Col>
                 </Stack>
 
@@ -159,8 +162,8 @@ function DetailTours() {
                     <Card.Title style={{ textAlign: "justify", fontSize: "14px" }} className="text-secondary mt-2 mb-3 mx-2">{detailTour?.description}</Card.Title>
                 </Stack>
                 <Stack direction='horizontal' className='mb-3 mt-3'>
-                    <Col className="text-start text-warning fw-bold fs-2" sm={2}>IDR. {detailTour?.price}</Col>
-                    <Col className="text-start fw-bold fs-4" sm={8}>/ Person</Col>
+                    <Col className="text-start text-warning fw-bold fs-2" sm={3}>{formatIDR.format(detailTour?.price)}</Col>
+                    <Col className="text-start fw-bold fs-4" sm={7}>/ Person</Col>
                     <Col sm={1} >
                         <Stack direction='horizontal' className="mx-5">
                             <Card.Img variant="top" src={minus} alt="images" className="p-3" style={{ width: "14vh" }} onClick={LessPerson} />
@@ -178,9 +181,11 @@ function DetailTours() {
 
                 <div className="d-flex justify-content-end">
 
-
-                    <Button variant="warning" style={{ width: "auto", height: "10vh", color: "white", fontWeight: "bold", fontSize: "20px" }} onClick={AddBooking}>BOOK NOW</Button>
-
+                    {state.isLogin === true ? (
+                        <Button variant="warning" style={{ width: "auto", height: "10vh", color: "white", fontWeight: "bold", fontSize: "20px" }} onClick={AddBooking}>BOOK NOW</Button>
+                    ) : (
+                        <Button variant="warning" style={{ width: "auto", height: "10vh", color: "white", fontWeight: "bold", fontSize: "20px" }} onClick={() => setLogin(true)}>BOOK NOW</Button>
+                    )}
                 </div>
 
             </Container >

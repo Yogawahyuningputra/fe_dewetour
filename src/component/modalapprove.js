@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Stack, Col, Card, Table, Button, Badge, Modal } from 'react-bootstrap'
 import logo from '../assest/images/logo2.png'
-import invoice from '../assest/images/invoice.png'
 import { API } from '../config/api';
 import moment from "moment"
 import QRCode from 'qrcode.react';

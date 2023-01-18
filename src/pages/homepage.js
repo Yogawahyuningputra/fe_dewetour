@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import homeimg from '../assest/images/homeimg.png'
 import guarante from '../assest/images/guarante.png'
 import iconuser from '../assest/images/iconuser.png'
 import iconuser2 from '../assest/images/iconuser2.png'
 import hand from '../assest/images/hand.png'
 import love from '../assest/images/love.png'
-import { useQuery } from 'react-query'
-// import sider from '../assest/images/sidefooter.png'
-import { API } from '../config/api'
-
 import Tour from './tour'
+import { Card, Col, Row, Form, InputGroup, Stack } from 'react-bootstrap';
 
-import { Card, Col, Row, Form, Button, InputGroup, Stack } from 'react-bootstrap';
+
 const style = {
     text: {
 
@@ -26,13 +23,6 @@ const style = {
 function Home() {
     const [search, setSearch] = useState('');
 
-    const onSubmitSearch = (event) => {
-        event.preventDefault();
-        setSearch(event.target.value);
-    };
-
-
-
     return (
         <>
             <Row className="App mb-5">
@@ -44,14 +34,12 @@ function Home() {
                             <Card.Title style={{ fontSize: "50px" }}>your amazing city together</Card.Title>
                         </Card.Text>
                         <Col>
-                            <Form onSubmit={onSubmitSearch}>
-                                <InputGroup className="d-flex justify-content-center mt-5 mx-2 w-75">
-                                    <Form.Control placeholder="Find great places to holiday" value={search} />
-                                    <Button variant="warning" type="submit" className="">
-                                        Search
-                                    </Button>
-                                </InputGroup>
-                            </Form>
+
+                            <InputGroup className="d-flex justify-content-center mt-5 mx-2 w-75">
+                                <Form.Control placeholder="Search & Find Great Places To Holidays" name="search" onChange={(data) => { setSearch(data.target.value) }} />
+
+                            </InputGroup>
+
                         </Col>
                     </Card.ImgOverlay>
                 </Stack>
@@ -109,7 +97,9 @@ function Home() {
                 </Stack>
             </Row>
 
-            <Tour search={search} />
+            <Tour search={search}
+
+            />
 
 
         </>

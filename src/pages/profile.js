@@ -6,6 +6,7 @@ import User from "../assest/images/user.png";
 import Phone from "../assest/images/phone.png";
 import Address from "../assest/images/address.png";
 import Mail from "../assest/images/mail.png";
+import Gender from "../assest/images/gender.png";
 import { UserContext } from "../context/userContext";
 import UpdateProfile from "../component/updateprofile"
 import logo from '../assest/images/logo2.png'
@@ -13,11 +14,19 @@ import { useQuery } from 'react-query'
 import { API } from '../config/api'
 import QRCode from 'qrcode.react';
 import moment from "moment"
-
+import { RotatingLines } from 'react-loader-spinner'
 function Profile() {
     const [state, dispatch] = useContext(UserContext)
     // console.log("profile", state)
-    const [show, setShow] = useState(false)
+
+    const [value, setValue] = useState(null)
+    const [update, setUpdate] = useState(false)
+    let { data: user, refetch: refetchUser, isFetching } = useQuery("user", async () => {
+        const response = await API.get(`/user/${state.user.id}`)
+        return response.data.data
+    })
+    // console.log(user)
+
     let { data: History } = useQuery('historyCache', async () => {
         const response = await API.get('/transactions')
         return response.data.data
@@ -28,6 +37,29 @@ function Profile() {
 
     })
 
+    const handleUpdate = (user) => {
+        setUpdate(true)
+        setValue(user)
+
+    }
+    if (isFetching) {
+        return (
+            <div className='d-flex justify-content-center' style={{ marginTop: "13rem" }}>
+                <RotatingLines
+                    strokeColor="grey"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    width="96"
+                    visible={true}
+                />
+            </div>
+        )
+    }
+    const formatIDR = new Intl.NumberFormat(undefined, {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0,
+    })
 
     return (
         <>
@@ -40,65 +72,73 @@ function Profile() {
 
                             <Card.Text style={{ fontWeight: "bold", fontSize: "25px" }}>Personal Info</Card.Text>
 
-                            <Stack direction="horizontal" gap={5} className="mb-5">
+                            <Stack direction="horizontal" gap={5} className="mb-2">
 
-                                <Img src={User} style={{ width: "35px", height: "35px" }} />
+                                <Img src={User} style={{ width: "30px", height: "30px" }} />
 
                                 <Stack direction="vertical">
-                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{state.user.fullname}</Card.Text>
+                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{user.fullname}</Card.Text>
                                     <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Fullname</Card.Text>
                                 </Stack>
                             </Stack>
-                            <Stack direction="horizontal" gap={5} className="mb-5">
+                            <Stack direction="horizontal" gap={5} className="mb-2">
 
-                                <Img src={Mail} style={{ width: "35px", height: "35px" }} />
+                                <Img src={Mail} style={{ width: "30px", height: "30px" }} />
 
                                 <Stack direction="vertical">
-                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{state.user.email}</Card.Text>
+                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{user.email}</Card.Text>
                                     <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Email</Card.Text>
                                 </Stack>
                             </Stack>
-
-                            <Stack direction="horizontal" gap={5} className="mb-5">
-                                <Img src={Phone} style={{ width: "35px", height: "35px" }} />
+                            <Stack direction="horizontal" gap={5} className="mb-2">
+                                <Img src={Gender} style={{ width: "30px", height: "30px" }} />
 
                                 <Stack direction="vertical">
-                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{state.user.phone}</Card.Text>
+                                    <Card.Text style={{ fontSize: "16px", fontWeight: "bold", marginBottom: "0px" }}>{user.gender}</Card.Text>
+                                    <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Gender </Card.Text>
+                                </Stack>
+                            </Stack>
+                            <Stack direction="horizontal" gap={5} className="mb-2">
+                                <Img src={Phone} style={{ width: "30px", height: "30px" }} />
+
+                                <Stack direction="vertical">
+                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}> +62 {user.phone}</Card.Text>
                                     <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Phone </Card.Text>
                                 </Stack>
                             </Stack>
 
                             <Stack direction="horizontal" gap={5} className="mb-1">
 
-                                <Img src={Address} style={{ width: "35px", height: "35px" }} />
+                                <Img src={Address} style={{ width: "30px", height: "30px" }} />
 
                                 <Stack direction="vertical">
-                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{state.user.address}</Card.Text>
+                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{user.address}</Card.Text>
                                     <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Address</Card.Text>
                                 </Stack>
                             </Stack>
                         </Stack>
                         <Stack direction="vertical" className="col-md-2 mt-3">
                             <Img className="rounded-3 "
-                                src={state.user.image}
+                                src={user.image}
                                 style={{
                                     width: "auto",
                                     height: "auto",
 
                                 }}
                             />
-                            <Button className="mb-1 mt-3 fw-bold" variant="warning" style={{ color: "white" }} onClick={() => setShow(true)}>Change Photo Profile</Button>
+                            <Button className="mb-1 mt-3 fw-bold" variant="warning" style={{ color: "white" }} onClick={() => handleUpdate(user)}>Change Photo Profile</Button>
 
                         </Stack>
                     </Stack>
                     <UpdateProfile
-                        show={show}
-                        hide={() => {
-                            setShow(false)
+                        show={update}
+                        onHide={setUpdate}
+                        value={value}
+                        onSaves={() => {
+                            setUpdate(false)
+                            refetchUser()
                         }}
-                        setShowClose={setShow}
                         dispatch={dispatch}
-                    // update={update}
                     />
 
                 </Row>
@@ -110,7 +150,7 @@ function Profile() {
             <Container style={{ width: "70%" }}>
                 <Card.Text className="text-secondary text-start fw-bold fs-3">History Trip</Card.Text>
                 {getByStatus?.map((item, index) => (
-                    <Stack direction="vertical" gap={3} style={{ boxShadow: "0px 0px 5px black", backgroundColor: "white", padding: "20px" }} className="d-flex justify content-center mt-5 mb-5 rounded-3">
+                    <Stack direction="vertical" gap={3} style={{ boxShadow: "0px 0px 5px black", backgroundColor: "white", padding: "20px" }} className="d-flex justify content-center mt-5 mb-2 rounded-3">
 
                         <Stack direction="horizontal" gap={3}>
                             <Col sm={9} className="d-flex justify-content-start">
@@ -159,7 +199,7 @@ function Profile() {
                                 </Col>
                             </Col>
                             <Stack direction="vertical" className="mt-3">
-                                {/* <img src={qrcode} alt="images" style={{ width: "140px", marginLeft: "35px" }}></img> */}
+                                {/* <img src={qrcode} alt="images" style={{ width: "140px", marginLeft: "30px" }}></img> */}
                                 <QRCode value={item?.status} />
                             </Stack>
 
@@ -181,7 +221,7 @@ function Profile() {
                                     <td>{index + 1}</td>
                                     <td>{state.user.fullname}</td>
                                     <td>{state.user.gender}</td>
-                                    <td>{state.user.phone}</td>
+                                    <td>+62 {state.user.phone}</td>
                                     <td>{state.user.address}</td>
                                     <td className='fw-bold'>Qty</td>
                                     <td colSpan={3} className="text-start fw-bold">: {item?.qty}</td>
@@ -192,7 +232,7 @@ function Profile() {
                                 <tr>
                                     <td colSpan={5}></td>
                                     <td className='fw-bold'>Total</td>
-                                    <td colSpan={3} className="text-start text-danger fw-bold">: {item.total}</td>
+                                    <td colSpan={3} className="text-start text-danger fw-bold">: {formatIDR.format(item.total)}</td>
                                 </tr>
                             </tbody>
                         </Table>

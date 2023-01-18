@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Container, Form, Button, Row, Col, Stack, Alert } from 'react-bootstrap'
 import file from '../assest/images/file.png'
-// import CountryDropdown from 'country-dropdown-with-flags-for-react';
 import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css'
 import { useMutation, useQuery } from 'react-query';
 import { API } from '../config/api';
+import Swal from 'sweetalert2'
+
 
 function AddTrip() {
     const [message, setMessage] = useState(null)
@@ -62,27 +63,39 @@ function AddTrip() {
 
             const response = await API.post('/trip', formData, config, trip)
             // console.log("tripss", response)
-
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            })
             const alert = (<Alert variant='success' className='py-1'>
                 Success
             </Alert>)
             setMessage(alert)
-            // setTrip({
-            //     title: '',
-            //     country_id: 0,
-            //     acomodation: '',
-            //     transportation: '',
-            //     eat: '',
-            //     day: '',
-            //     night: '',
-            //     date_trip: '',
-            //     price: 0,
-            //     quota: '',
-            //     description: '',
-            //     image: '',
-            // })
+            setTrip({
+                title: '',
+                country_id: 0,
+                acomodation: '',
+                transportation: '',
+                eat: '',
+                day: '',
+                night: '',
+                date_trip: '',
+                price: 0,
+                quota: '',
+                description: '',
+                image: '',
+            })
             e.target.reset(trip)
         } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+
+            })
             const alert = (
                 <Alert variant='danger' className="py-1">Failed</Alert>
             )
