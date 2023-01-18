@@ -29,6 +29,7 @@ function Transaction() {
         maximumFractionDigits: 0,
     })
 
+    let income = 0
 
 
 
@@ -53,38 +54,45 @@ function Transaction() {
                             </tr>
                         </thead>
                         <tbody >
-                            {transactions?.map((items, index) => (
+                            {transactions?.map((items, index) => {
+                                if (items?.status === "Approve") {
+                                    income += items?.total
+                                }
+                                return (
+                                    <tr>
+                                        <td>{index + 1}</td>
+                                        <td>{items?.user?.fullname}</td>
+                                        <td>{items?.trip?.title}</td>
+                                        <td className="text-danger fw-bold text-start">{formatIDR.format(items?.total)}</td>
+                                        <td>
+                                            {
+                                                items?.status === "success" ?
+                                                    <label ><Badge bg="warning">Waiting Approve</Badge></label>
+                                                    : items?.status === "Approve" ?
+                                                        <label><Badge bg="success">Approve</Badge></label>
+                                                        : items?.status === "Cancel" ?
+                                                            <label ><Badge bg="danger">Cancel</Badge></label>
+                                                            : null
+                                            }
+                                        </td>
+                                        <td >
+                                            <Img onClick={() => handleOnClick(items)}
+                                                src={Search}
+                                                style={{
+                                                    width: "30px",
+                                                    height: "30px",
+                                                    justifyContent: "center",
+                                                }}
+                                            />
+                                        </td>
 
-                                <tr>
-                                    <td>{index + 1}</td>
-                                    <td>{items?.user?.fullname}</td>
-                                    <td>{items?.trip?.title}</td>
-                                    <td className="text-danger fw-bold text-start">{formatIDR.format(items?.total)}</td>
-                                    <td>
-                                        {
-                                            items?.status === "success" ?
-                                                <label ><Badge bg="warning">Waiting Approve</Badge></label>
-                                                : items?.status === "Approve" ?
-                                                    <label><Badge bg="success">Approve</Badge></label>
-                                                    : items?.status === "Cancel" ?
-                                                        <label ><Badge bg="danger">Cancel</Badge></label>
-                                                        : null
-                                        }
-                                    </td>
-                                    <td >
-                                        <Img onClick={() => handleOnClick(items)}
-                                            src={Search}
-                                            style={{
-                                                width: "30px",
-                                                height: "30px",
-                                                justifyContent: "center",
-                                            }}
-                                        />
-                                    </td>
-                                </tr>
+                                    </tr>
+                                )
 
-                            ))}
-
+                            })}
+                            <tr className="table-success text-start " >
+                                <th colSpan={6}>Total Icome : {formatIDR.format(income)}</th>
+                            </tr>
                         </tbody>
 
                     </Table>
