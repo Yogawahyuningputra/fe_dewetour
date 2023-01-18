@@ -56,11 +56,11 @@ function Navs() {
         <Navbar style={{ backgroundImage: `url(${Navimg}`, height: "11vh", width: "100%" }}>
             <Container>
                 {state.user.role === "admin" ? (
-                    <Navbar.Brand onClick={() => navigate("/admin")}>
+                    <Navbar.Brand href="/admin">
                         <img src={logo} alt="brand" style={{ cursor: 'pointer' }}></img>
                     </Navbar.Brand>
                 ) : (
-                    <Navbar.Brand onClick={() => navigate("/")}>
+                    <Navbar.Brand href="/">
                         <img src={logo} alt="brand" style={{ cursor: 'pointer' }}></img>
                     </Navbar.Brand>
                 )}

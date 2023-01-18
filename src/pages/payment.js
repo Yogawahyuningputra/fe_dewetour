@@ -8,8 +8,11 @@ import { API } from '../config/api'
 import { UserContext } from '../context/userContext'
 import QRCode from 'qrcode.react';
 import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import moment from 'moment'
 import { RotatingLines } from 'react-loader-spinner'
+
+const Swal2 = withReactContent(Swal)
 
 
 function Payment() {
@@ -17,7 +20,7 @@ function Payment() {
 
     const navigate = useNavigate()
     const [state,] = useContext(UserContext)
-    const { data: Payment, refetch: refetchUpdate, isFetching } = useQuery('paymentCache', async () => {
+    const { data: Payment, refetch, isFetching } = useQuery('paymentCache', async () => {
         const response = await API.get("/transactions")
         return response.data.data
         // console.loh("isi response", response)
@@ -41,7 +44,7 @@ function Payment() {
         ))
 
     }
-    // console.log("id trans", IdTrans)
+    console.log("id trans", IdTrans)
     const HandlePay = async (e) => {
         try {
 
@@ -79,14 +82,13 @@ function Payment() {
 
             navigate("/payment")
 
-            refetchUpdate()
+            refetch()
 
         } catch (error) {
             console.log(error)
         }
 
     }
-
 
     useEffect(() => {
         //change this to the script source you want to load, for example this is snap.js sandbox env
@@ -107,30 +109,26 @@ function Payment() {
     }, [])
 
 
-    const HandleDelete = async () => {
+    const HandleDelete = async (e) => {
         try {
+            e.preventDefault()
 
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(async (result) => {
-
-                if (result.isConfirmed) {
-
-                    const response = await API.delete('/transaction/' + IdTrans)
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
-            refetchUpdate()
+            const config = {
+                method: "DELETE",
+                headers: {
+                    Authorization: "Basic " + localStorage.token,
+                },
+            }
+            const response = await API.delete('/transaction/' + IdTrans, config)
+            if (response?.status === 200) {
+                Swal2.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Delete Success',
+                    showConfirmButton: false,
+                })
+            }
+            refetch()
         } catch (error) {
             console.log(error)
         }

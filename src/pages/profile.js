@@ -64,7 +64,7 @@ function Profile() {
                                 <Img src={User} style={{ width: "30px", height: "30px" }} />
 
                                 <Stack direction="vertical">
-                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{user.fullname}</Card.Text>
+                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{user?.fullname}</Card.Text>
                                     <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Fullname</Card.Text>
                                 </Stack>
                             </Stack>
@@ -73,7 +73,7 @@ function Profile() {
                                 <Img src={Mail} style={{ width: "30px", height: "30px" }} />
 
                                 <Stack direction="vertical">
-                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{user.email}</Card.Text>
+                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{user?.email}</Card.Text>
                                     <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Email</Card.Text>
                                 </Stack>
                             </Stack>
@@ -81,7 +81,7 @@ function Profile() {
                                 <Img src={Gender} style={{ width: "30px", height: "30px" }} />
 
                                 <Stack direction="vertical">
-                                    <Card.Text style={{ fontSize: "16px", fontWeight: "bold", marginBottom: "0px" }}>{user.gender}</Card.Text>
+                                    <Card.Text style={{ fontSize: "16px", fontWeight: "bold", marginBottom: "0px" }}>{user?.gender}</Card.Text>
                                     <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Gender </Card.Text>
                                 </Stack>
                             </Stack>
@@ -89,7 +89,7 @@ function Profile() {
                                 <Img src={Phone} style={{ width: "30px", height: "30px" }} />
 
                                 <Stack direction="vertical">
-                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}> +62 {user.phone}</Card.Text>
+                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}> +62 {user?.phone}</Card.Text>
                                     <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Phone </Card.Text>
                                 </Stack>
                             </Stack>
@@ -99,14 +99,14 @@ function Profile() {
                                 <Img src={Address} style={{ width: "30px", height: "30px" }} />
 
                                 <Stack direction="vertical">
-                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{user.address}</Card.Text>
+                                    <Card.Text style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>{user?.address}</Card.Text>
                                     <Card.Text style={{ fontSize: "14px", color: "#8A8C90" }}>Address</Card.Text>
                                 </Stack>
                             </Stack>
                         </Stack>
                         <Stack direction="vertical" className="col-md-2 mt-3">
                             <Img className="rounded-3 "
-                                src={user.image}
+                                src={user?.image}
                                 style={{
                                     width: "auto",
                                     height: "auto",
