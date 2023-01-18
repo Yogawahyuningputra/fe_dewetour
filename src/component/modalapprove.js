@@ -59,8 +59,8 @@ function ModalApprove(props) {
                             <img src={logo} alt="images"></img>
                         </Col>
                         <Col sm={3} className="fw-bold">
-                            <Card.Text className="fw-bold mt-0">BOOKING</Card.Text>
-                            <Card.Text className="text-secondary">{moment(selectedData?.trip?.date_trip).format("DD MMMM YYYY")}</Card.Text>
+                            <Card.Text className="fw-bold mt-0 mx-5">BOOKING</Card.Text>
+                            <Card.Text className="text-secondary mx-4">{moment(selectedData?.trip?.date_trip).format("DD MMMM YYYY")}</Card.Text>
                         </Col>
                     </Stack>
                     <Stack direction="horizontal" gap={3} className="mt-0">
