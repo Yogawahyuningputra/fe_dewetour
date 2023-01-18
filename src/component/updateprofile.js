@@ -105,7 +105,7 @@ export default function UpdateUser({ show, onHide, onSaves, value }) {
                 <Modal.Body>
                     <Form onSubmit={(e) => handleOnSubmit.mutate(e)} >
 
-                        <Form.Group className="mb-3 scrollView fw-bold" controlId="formBasic" style={{ height: '38vh', overflowY: 'scroll' }} >
+                        <Form.Group className="mb-3 scrollView fw-bold" controlId="formBasic" style={{ height: '45vh', overflowY: 'scroll' }} >
                             <Form.Group className="mb-3" controlId="formBasicName" >
                                 <Form.Label>Fullname</Form.Label>
 

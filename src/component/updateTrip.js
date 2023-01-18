@@ -118,7 +118,7 @@ export default function Updatetrip(props) {
                     <Modal.Title>Update Trips</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form className="mx-5 text-start" onSubmit={(e) => handleOnSubmit.mutate(e)}>
+                    <Form className="mx-3 text-start overflow-auto" style={{ height: "30rem" }} onSubmit={(e) => handleOnSubmit.mutate(e)}>
                         <div className="d-flex justify-content-between">
                             <div>
                                 <Form.Label className="fs-4 text-center mb-4 mt-2"> Add Trip</Form.Label>
@@ -126,17 +126,14 @@ export default function Updatetrip(props) {
                             <div>
                             </div>
                         </div>
-
-
-
                         <Form.Group className="mb-3" controlId="formGridName" >
                             <Form.Label >Title Trip </Form.Label>
                             <Form.Control value={trip?.title}
-                                name="title" type="text" placeholder="Title" style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
+                                name="title" type="text" placeholder="Title" style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
                         </Form.Group>
                         <Stack direction="vertical" className="mb-3">
                             <Form.Label className="">Country</Form.Label>
-                            <Form.Select size="md" type="number" name='country_id' style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange}>
+                            <Form.Select size="md" type="number" name='country_id' style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange}>
                                 {Country?.map((data) => (
 
                                     <option value={data.id}>{data.name}</option>
@@ -148,38 +145,38 @@ export default function Updatetrip(props) {
                         <Form.Group className="mb-3" controlId="formGridPassword" >
                             <Form.Label>Acomodation</Form.Label>
                             <Form.Control value={trip?.acomodation}
-                                name="acomodation" type="text" placeholder="Acomodation" style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
+                                name="acomodation" type="text" placeholder="Acomodation" style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formGridAddress1" >
                             <Form.Label>Transportations</Form.Label>
-                            <Form.Control value={trip?.transportation} name="transportation" placeholder="Transportation" style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
+                            <Form.Control value={trip?.transportation} name="transportation" placeholder="Transportation" style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formGridAddress1" >
                             <Form.Label>Eat</Form.Label>
-                            <Form.Control value={trip?.eat} name="eat" placeholder="Eat" style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
+                            <Form.Control value={trip?.eat} name="eat" placeholder="Eat" style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
                         </Form.Group>
                         <Row className="mb-3">
                             <Form.Group as={Col} md="8" controlId="formGridCity" >
                                 <Form.Label>Durations</Form.Label>
                                 <Stack direction="horizontal">
-                                    <Form.Control value={trip?.day} name="day" type="number" placeholder="Day" style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
+                                    <Form.Control value={trip?.day} name="day" type="number" placeholder="Day" style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
                                     <Form.Label className="mx-2">Day</Form.Label>
-                                    <Form.Control value={trip?.night} name="night" type="number" placeholder="Night" style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
+                                    <Form.Control value={trip?.night} name="night" type="number" placeholder="Night" style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
                                     <Form.Label className="mx-2">Night</Form.Label>
                                 </Stack>
                             </Form.Group>
                         </Row>
                         <Form.Group className="mb-3" controlId="formGridAddress1" >
                             <Form.Label>Date Trip</Form.Label>
-                            <Form.Control value={trip?.date_trip} name="date_trip" type='date' placeholder="Date Trip" style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
+                            <Form.Control value={trip?.date_trip} name="date_trip" type='date' placeholder="Date Trip" style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formGridAddress1" >
                             <Form.Label>Price</Form.Label>
-                            <Form.Control value={trip?.price} name="price" type="number" placeholder="Price" style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
+                            <Form.Control value={trip?.price} name="price" type="number" placeholder="Price" style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formGridAddress1" >
                             <Form.Label>Quota</Form.Label>
-                            <Form.Control value={trip?.quota} name="quota" placeholder="Quota" style={{ backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
+                            <Form.Control value={trip?.quota} name="quota" placeholder="Quota" style={{ borderWidth: "2px", borderColor: "grey", backgroundColor: "#E5E5E5" }} onChange={handleOnChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formGridAddress1" >
                             <Form.Label>Description</Form.Label>
@@ -212,7 +209,7 @@ export default function Updatetrip(props) {
                         <div className='d-flex justify-content-center mt-5 mb-5'>
                             <Button
                                 variant="warning"
-                                className="w-50 mb-5 text-white fw-bold"
+                                className="w-50 mb-1 text-white fw-bold"
                                 size="md"
                                 type="submit"
                             >

@@ -15,17 +15,11 @@ function Income() {
     const [update, setUpdate] = useState(false)
     const [selectData, setSelectedData] = useState(null)
 
-    const { data: IncomeTrip, refetch: refetchUpdate } = useQuery('incomeCache', async () => {
+    const { data: IncomeTrip, refetch: refetchUpdate, isFetching } = useQuery('incomeCache', async () => {
         const response = await API.get('/trips')
         return response.data.data
     })
     // console.log("income", IncomeTrip)
-    // const formatIDR = new Intl.NumberFormat(undefined, {
-    //     style: "currency",
-    //     currency: "IDR",
-    //     maximumFractionDigits: 0,
-    // })
-
     let totalIncomeByCountry = {};
 
     if (IncomeTrip) {
@@ -85,6 +79,23 @@ function Income() {
         currency: "IDR",
         maximumFractionDigits: 0,
     })
+
+    if (isFetching) {
+        return (
+
+            <div className='d-flex justify-content-center' style={{ marginTop: "13rem" }}>
+                <RotatingLines
+                    strokeColor="grey"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    width="96"
+                    visible={true}
+                />
+            </div>
+        )
+    }
+
+
     return (
         <Container style={{ marginTop: "10vh" }}>
             <Stack direction='horizontal' style={{ marginRight: "38vh" }}>
@@ -114,11 +125,6 @@ function Income() {
                                 </Col>
                                 <Stack direction="horizontal">
                                     <Col className="fw-bold text-warning text-start fs-6">
-                                        {/* {
-                                                Object.keys(totalIncomeByCountry).map((country) => (
-                                                    <div>Total income for {country}: {formatIDR.format(totalIncomeByCountry[country])}</div>
-                                                ))
-                                            } */}
                                         {formatIDR.format(items?.price)}
                                     </Col>
                                     <Col className="text-end text-secondary fw-bold">
@@ -148,7 +154,6 @@ function Income() {
                     setUpdate(false)
                     refetchUpdate()
                 }}
-
 
             />
         </Container >

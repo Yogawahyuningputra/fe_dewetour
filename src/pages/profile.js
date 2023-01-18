@@ -14,14 +14,13 @@ import { useQuery } from 'react-query'
 import { API } from '../config/api'
 import QRCode from 'qrcode.react';
 import moment from "moment"
-import { RotatingLines } from 'react-loader-spinner'
 function Profile() {
     const [state, dispatch] = useContext(UserContext)
     // console.log("profile", state)
 
     const [value, setValue] = useState(null)
     const [update, setUpdate] = useState(false)
-    let { data: user, refetch: refetchUser, isFetching } = useQuery("user", async () => {
+    let { data: user, refetch: refetchUser } = useQuery("user", async () => {
         const response = await API.get(`/user/${state.user.id}`)
         return response.data.data
     })
@@ -42,19 +41,7 @@ function Profile() {
         setValue(user)
 
     }
-    if (isFetching) {
-        return (
-            <div className='d-flex justify-content-center' style={{ marginTop: "13rem" }}>
-                <RotatingLines
-                    strokeColor="grey"
-                    strokeWidth="5"
-                    animationDuration="0.75"
-                    width="96"
-                    visible={true}
-                />
-            </div>
-        )
-    }
+
     const formatIDR = new Intl.NumberFormat(undefined, {
         style: "currency",
         currency: "IDR",
