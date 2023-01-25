@@ -110,7 +110,7 @@ export default function Updatetrip(props) {
         const response = await API.get("/countries")
         return response.data.data
     })
-    console.log(updateCountry)
+    // console.log(updateCountry)
     return (
         <>
             <Modal show={show} onHide={onHide}>
@@ -185,16 +185,16 @@ export default function Updatetrip(props) {
                                 name="description"
                                 as="textarea"
                                 placeholder="Leave a comment here"
-                                style={{ height: '100px', backgroundColor: "#E5E5E5" }}
+                                style={{ height: '100px', backgroundColor: "#E5E5E5", borderWidth: "2px", borderColor: "grey" }}
                                 onChange={handleOnChange}
 
                             />
                         </Form.Group>
                         <Form.Label>Image</Form.Label>
                         <Form.Label className="d-flex justify-content-between w-100">
-                            <Stack direction="horizontal" className="ps-3 py-2 fs-6 text-start px-2 rounded-1 " style={{ backgroundColor: "#E5E5E5", width: "auto" }}>
+                            <Stack direction="horizontal" className="ps-3 py-2 fs-6 text-start px-2 rounded-1 " style={{ backgroundColor: "#E5E5E5", width: "auto", cursor: "pointer" }}>
                                 Attach File
-                                <img src={file} alt="file" className="" style={{ width: "15px", height: "25px", marginLeft: "85px" }}></img>
+                                <img src={file} alt="file" className="" style={{ width: "15px", height: "25px", marginLeft: "85px", cursor: "pointer" }}></img>
                             </Stack>
                             <input hidden id="file" type="file" name="image" onChange={handleOnChange}></input>
                         </Form.Label>

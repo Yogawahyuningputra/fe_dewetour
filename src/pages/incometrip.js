@@ -7,6 +7,7 @@ import { API } from '../config/api';
 import AddCountry from './addCountry'
 import UpdateTrip from '../component/updateTrip';
 import { RotatingLines } from 'react-loader-spinner'
+import Swal from 'sweetalert2'
 
 
 function Income() {
@@ -35,44 +36,44 @@ function Income() {
         setSelectedData(items)
     }
 
-    // let ID = 0
-    // if (IncomeTrip?.length !== 0) {
-    //     IncomeTrip?.map((element) => (
-    //         ID = element.id
+    let ID = 0
+    if (IncomeTrip?.length !== 0) {
+        IncomeTrip?.map((element) => (
+            ID = element.id
 
-    //     ))
+        ))
 
-    // }
-    // console.log(ID)
-    // const handleDelete = async () => {
-    //     try {
-    //         Swal.fire({
-    //             title: 'Are you sure?',
-    //             text: "You won't be able to revert this!",
-    //             icon: 'warning',
-    //             showCancelButton: true,
-    //             confirmButtonColor: '#3085d6',
-    //             cancelButtonColor: '#d33',
-    //             confirmButtonText: 'Yes, delete it!'
-    //         })
-    //             .then(async (result) => {
+    }
+    console.log(ID)
+    const handleDelete = async () => {
+        try {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            })
+                .then(async (result) => {
 
-    //                 if (result.isConfirmed) {
-    //                     await API.delete(`/trip/` + ID);
+                    if (result.isConfirmed) {
+                        await API.delete(`/trip/` + ID);
 
-    //                     Swal.fire(
-    //                         'Deleted!',
-    //                         'Your file has been deleted.',
-    //                         'success'
-    //                     )
-    //                 }
-    //             })
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
 
-    //         refetchUpdate();
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
+            refetchUpdate();
+        } catch (error) {
+            console.error(error);
+        }
+    }
     const formatIDR = new Intl.NumberFormat(undefined, {
         style: "currency",
         currency: "IDR",
@@ -131,11 +132,11 @@ function Income() {
                                     </Col>
                                 </Stack>
                                 <Stack direction="horizontal">
-                                    {/* <Col className="text-secondary mb-2 d-flex justify-content-center">
-                                        <Button variant="warning" className="text-light fw-bold w-75" onClick={handleDelete} >DELETE</Button>
-                                    </Col> */}
                                     <Col className="text-secondary mb-2 d-flex justify-content-center">
-                                        <Button variant="warning" size="sm" className="text-light fw-bold w-100 mt-2" onClick={() => handleUpdate(items)}>UPDATE</Button>
+                                        <Button variant="danger" size="sm" className="text-light fw-bold w-75 mt-2" onClick={handleDelete} >DELETE</Button>
+                                    </Col>
+                                    <Col className="text-secondary mb-2 d-flex justify-content-center">
+                                        <Button variant="warning" size="sm" className="text-light fw-bold w-75 mt-2" onClick={() => handleUpdate(items)}>UPDATE</Button>
                                     </Col>
                                 </Stack>
                             </Card.Body>
